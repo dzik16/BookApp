@@ -1,10 +1,23 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getDataBooksId} from '../../../config/api';
 
-const DetailScreen = () => {
+const DetailScreen = ({route, navigation}) => {
+  const dispatch = useDispatch();
+  const dataBooksId = useSelector(state => state.dataBooks.booksId);
+  const getToken = useSelector(state => state.Auth.token);
+
+  const {id} = route.params;
+
+  useEffect(() => {
+    dispatch(getDataBooksId(getToken, id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View>
-      <Text>DetailScreen</Text>
+      <Text>{dataBooksId.title}</Text>
     </View>
   );
 };

@@ -3,7 +3,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import reduxLogger from 'redux-logger';
 import {persistReducer, persistStore} from 'redux-persist';
 import ReduxThunk from 'redux-thunk';
-import {authReducers} from '../reducer/index';
+import {authReducers, dataReducers} from '../reducer';
 
 const persistConfig = {
   key: 'root',
@@ -12,7 +12,7 @@ const persistConfig = {
 };
 
 const rootReducer = {
-  //   dataBooks: dataReducers,
+  dataBooks: dataReducers,
   Auth: authReducers,
 };
 
