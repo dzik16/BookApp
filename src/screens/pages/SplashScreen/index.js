@@ -1,20 +1,63 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
+import {SplashAnim} from '../../../assets';
+import LottieView from 'lottie-react-native';
+import {Color} from '../../../config/utils/color';
+import {useIsFocused} from '@react-navigation/native';
+import ScreenStatusBar from '../../../components/ScreenStatusBar';
 
 const Splash = ({navigation}) => {
+  const focus = useIsFocused();
+
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('LoginScreen');
-    }, 3000);
+    }, 6000);
   }, [navigation]);
 
   return (
-    <View>
-      <Text>Splash Screen</Text>
+    <View style={styles.container}>
+      <ScreenStatusBar status={focus} color={'#22C7A9'} />
+      <View style={{flex: 4}}>
+        <LottieView source={SplashAnim} autoPlay loop />
+      </View>
+      <View style={styles.judul}>
+        <Text style={styles.txtjudul}>BOOK-APP</Text>
+      </View>
+      <View style={styles.containerTxt}>
+        <Text style={styles.txt}>By M. Dzikri Alfarisyi</Text>
+      </View>
     </View>
   );
 };
 
 export default Splash;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Color.PRIMARY_MAIN_COLOR,
+  },
+  containerTxt: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  judul: {
+    flex: 1.5,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  txtjudul: {
+    fontSize: 30,
+    color: Color.WHITE,
+    fontWeight: 'bold',
+  },
+  txt: {
+    color: Color.WHITE,
+    fontWeight: '300',
+    fontSize: 16,
+  },
+});
