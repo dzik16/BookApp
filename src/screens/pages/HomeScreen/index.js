@@ -1,20 +1,21 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import ScreenStatusBar from '../../../components/ScreenStatusBar';
+import {useIsFocused} from '@react-navigation/native';
 import {
-  getDataBooksPopular,
-  getDataBooksRecommended,
+  getBooksPopular,
+  getBooksRecommended,
   logout,
 } from '../../../config/api';
+import {Color} from '../../../config/utils/color';
+
+import Header from './components/header';
+import Recommended from './components/recommended';
+import Popular from './components/popular';
 
 const HomeScreen = ({navigation}) => {
+  const focus = useIsFocused();
   const dispatch = useDispatch();
 
   const dataBooksRecommended = useSelector(
@@ -27,8 +28,8 @@ const HomeScreen = ({navigation}) => {
   console.log(getToken);
 
   useEffect(() => {
-    dispatch(getDataBooksRecommended(getToken, 5));
-    dispatch(getDataBooksPopular(getToken));
+    dispatch(getBooksRecommended(getToken, 5));
+    dispatch(getBooksPopular(getToken));
   }, []);
 
   const logOut = () => {
@@ -37,25 +38,45 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.recommended}>
-      <Text style={styles.label}>Recommended</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {dataBooksRecommended.map(item => (
-          <View style={{marginHorizontal: 3}} key={item.id}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('DetailScreen', {id: item.id})
-              }>
-              <Text>{item.title}</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
-      <Button onPress={() => logOut()} title="LogOut" />
+    <View style={styles.main}>
+      <Header />
+      <View style={styles.container}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={dataBooksPopular}
+          numColumns={2}
+          keyExtractor={(item, index) => String(index)}
+          ListHeaderComponent={() => (
+            <>
+              <ScreenStatusBar status={focus} color={Color.SECOND_MAIN_COLOR} />
+              <Recommended data={dataBooksRecommended} />
+              <Text style={styles.popular}>Popular</Text>
+            </>
+          )}
+          renderItem={({item, index}) => <Popular data={item} />}
+        />
+      </View>
     </View>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    backgroundColor: Color.SECOND_MAIN_COLOR,
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: Color.THIRD_MAIN_COLORL,
+  },
+  popular: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Color.BLACK,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+});

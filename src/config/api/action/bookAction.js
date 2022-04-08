@@ -19,7 +19,7 @@ export const saveBookId = data => ({
   payload: data,
 });
 
-export const getDataBooksRecommended = (token, limit) => async dispatch => {
+export const getBooksRecommended = (token, limit) => async dispatch => {
   dispatch(setLoading(true));
   try {
     await axios
@@ -28,6 +28,7 @@ export const getDataBooksRecommended = (token, limit) => async dispatch => {
         params: {limit},
       })
       .then(response => {
+        dispatch(setLoading(false));
         dispatch(saveBookRecommended(response.data.results));
       });
   } catch (err) {
@@ -37,16 +38,17 @@ export const getDataBooksRecommended = (token, limit) => async dispatch => {
   }
 };
 
-export const getDataBooksPopular = token => async dispatch => {
+export const getBooksPopular = token => async dispatch => {
   dispatch(setLoading(true));
   try {
     await axios
       .get(BOOKS_API, {headers: {Authorization: `Bearer ${token}`}})
       .then(response => {
+        dispatch(setLoading(false));
         dispatch(saveBookPopular(response.data.results));
       });
   } catch (err) {
-    console.log(err.message);
+    console.log('hahha');
     // showError(err.message);
     // dispatch(refresh(false));
     dispatch(setLoading(false));
@@ -54,7 +56,7 @@ export const getDataBooksPopular = token => async dispatch => {
 };
 
 // GET_BOOKS_API_BY_ID
-export const getDataBooksId = (token, id) => async dispatch => {
+export const getBooksId = (token, id) => async dispatch => {
   dispatch(setLoading(true));
   try {
     await axios

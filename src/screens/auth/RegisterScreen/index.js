@@ -89,7 +89,7 @@ const Register = () => {
         <View style={styles.containerRegist}>
           <View>
             <Text style={{fontSize: 13, color: Color.WHITE}}>
-              Do You Have Account?
+              Already have an Account?
             </Text>
           </View>
           <View>
@@ -97,7 +97,7 @@ const Register = () => {
               onPress={() => navigation.navigate('LoginScreen')}>
               <Text
                 style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
-                Login -&gt;
+                Login {'>'}
               </Text>
             </TouchableOpacity>
           </View>

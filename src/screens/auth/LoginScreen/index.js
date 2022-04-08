@@ -78,18 +78,18 @@ const Login = () => {
 
         <View style={styles.containerRegist}>
           <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('RegisterScreen')}>
-              <Text
-                style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
-                Sign Up
+            <TouchableOpacity>
+              <Text style={{fontSize: 15, color: Color.WHITE}}>
+                Dont have an account?
               </Text>
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity>
-              <Text style={{fontSize: 15, color: 'black'}}>
-                Forgot Password ?
+            <TouchableOpacity
+              onPress={() => navigation.navigate('RegisterScreen')}>
+              <Text
+                style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
+                Sign Up {'>'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   containerRegist: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
   },
   btnLogin: {
     justifyContent: 'center',

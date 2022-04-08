@@ -31,6 +31,7 @@ export const loginUser = (email, password) => async dispatch => {
         dispatch(
           login(response.data.tokens.access.token, response.data.user.name),
         );
+        dispatch(setLoading(false));
         dispatch(regSukses(false));
         console.log('Login Sukses');
         // showSuccess('Login Sukses');
@@ -50,6 +51,7 @@ export const signupUser = (name, email, password) => async dispatch => {
       dispatch(register());
       dispatch(regSukses(true));
       console.log('Register Berhasil');
+      dispatch(setLoading(false));
       //   showSuccess('Register Berhasil');
     });
   } catch (error) {

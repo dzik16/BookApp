@@ -1,4 +1,4 @@
-import {GET_BOOKS_RECOMMENDED, GET_BOOKS_POPULAR, GET_BOOKS_ID} from '../types';
+import {BOOKS_RECOMMENDED, BOOKS_POPULAR, BOOKS_ID} from '../types';
 
 const initialBookState = {
   booksRecommended: [],
@@ -8,20 +8,20 @@ const initialBookState = {
 
 export const dataReducers = (state = initialBookState, action) => {
   switch (action.type) {
-    case GET_BOOKS_RECOMMENDED:
+    case BOOKS_RECOMMENDED:
       return {
         ...state,
         booksRecommended: action.payload,
         // isRefreshing: false,
       };
-    case GET_BOOKS_POPULAR:
+    case BOOKS_POPULAR:
       return {
         ...state,
         booksPopular: action.payload,
         // isLoading: false,
         // isRefreshing: false,
       };
-    case GET_BOOKS_ID:
+    case BOOKS_ID:
       return {
         ...state,
         booksId: action.payload,
