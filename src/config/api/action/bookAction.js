@@ -1,25 +1,26 @@
 import axios from 'axios';
 import {BOOKS_API} from '../../api/baseAPI';
 
-import {GET_BOOKS_RECOMMENDED, GET_BOOKS_POPULAR, GET_BOOKS_ID} from '../types';
+import {BOOKS_RECOMMENDED, BOOKS_POPULAR, BOOKS_ID} from '../types';
+import {setLoading} from './globalAction';
 
 export const saveBookPopular = data => ({
-  type: GET_BOOKS_POPULAR,
+  type: BOOKS_POPULAR,
   payload: data,
 });
 
 export const saveBookRecommended = data => ({
-  type: GET_BOOKS_RECOMMENDED,
+  type: BOOKS_RECOMMENDED,
   payload: data,
 });
 
 export const saveBookId = data => ({
-  type: GET_BOOKS_ID,
+  type: BOOKS_ID,
   payload: data,
 });
 
 export const getDataBooksRecommended = (token, limit) => async dispatch => {
-  // dispatch(setLoading(true));
+  dispatch(setLoading(true));
   try {
     await axios
       .get(BOOKS_API, {
@@ -36,9 +37,8 @@ export const getDataBooksRecommended = (token, limit) => async dispatch => {
   }
 };
 
-// GET_BOOKS_API_POPULAR
 export const getDataBooksPopular = token => async dispatch => {
-  // dispatch(setLoading(true));
+  dispatch(setLoading(true));
   try {
     await axios
       .get(BOOKS_API, {headers: {Authorization: `Bearer ${token}`}})
@@ -49,13 +49,13 @@ export const getDataBooksPopular = token => async dispatch => {
     console.log(err.message);
     // showError(err.message);
     // dispatch(refresh(false));
-    // dispatch(setLoading(false));
+    dispatch(setLoading(false));
   }
 };
 
 // GET_BOOKS_API_BY_ID
 export const getDataBooksId = (token, id) => async dispatch => {
-  // dispatch(setLoading(true));
+  dispatch(setLoading(true));
   try {
     await axios
       .get(`${BOOKS_API}/${id}`, {
@@ -68,6 +68,6 @@ export const getDataBooksId = (token, id) => async dispatch => {
     console.log(err.message);
     // showError(err.message);
     // dispatch(refresh(false));
-    // dispatch(setLoading(false));
+    dispatch(setLoading(false));
   }
 };

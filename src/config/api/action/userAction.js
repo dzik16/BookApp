@@ -1,33 +1,17 @@
 import axios from 'axios';
 import {LOGIN_API, REGISTER_API} from '../../api/baseAPI';
 
-import {
-  REGISTER,
-  REGISTER_LOADING,
-  REGISTER_SUCCESS,
-  LOGIN,
-  LOGIN_LOADING,
-  LOGOUT,
-} from '../types';
+import {REGISTER, REGISTER_SUCCESS, LOGIN, LOGOUT} from '../types';
+import {setLoading} from './globalAction';
 
 export const register = () => ({
   type: REGISTER,
-});
-
-export const registerLoading = value => ({
-  type: REGISTER_LOADING,
-  payload: value,
 });
 
 export const login = (token, name) => ({
   type: LOGIN,
   payload: token,
   name,
-});
-
-export const loginLoading = value => ({
-  type: LOGIN_LOADING,
-  payload: value,
 });
 
 export const regSukses = value => ({
@@ -40,7 +24,7 @@ export const logout = () => ({
 });
 
 export const loginUser = (email, password) => async dispatch => {
-  //   dispatch(loginLoading(true));
+  dispatch(setLoading(true));
   try {
     await axios.post(LOGIN_API, {email, password}).then(response => {
       if (response.data.tokens.access.token) {
@@ -54,12 +38,12 @@ export const loginUser = (email, password) => async dispatch => {
   } catch (error) {
     console.log(error.message);
     // showError(error.message);
-    // dispatch(loginLoading(false));
+    dispatch(setLoading(false));
   }
 };
 
 export const signupUser = (name, email, password) => async dispatch => {
-  //   dispatch(registerLoading(true));
+  dispatch(setLoading(true));
   try {
     await axios.post(REGISTER_API, {email, password, name}).then(() => {
       dispatch(register());
@@ -68,7 +52,7 @@ export const signupUser = (name, email, password) => async dispatch => {
     });
   } catch (error) {
     dispatch(regSukses(false));
-    // dispatch(registerLoading(false));
+    dispatch(setLoading(false));
     // showError(error.message);
     console.log(error.message);
   }

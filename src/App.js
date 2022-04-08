@@ -5,10 +5,6 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {Persistore, Store} from './config/api';
 import Root from './config/router/index';
 
-// const Splash = () => {
-//   const dispatch = useDispatch();
-// }
-
 const App = () => {
   return (
     <Provider store={Store}>

@@ -1,17 +1,9 @@
-import {
-  REGISTER,
-  REGISTER_LOADING,
-  REGISTER_SUCCESS,
-  LOGIN,
-  LOGIN_LOADING,
-  LOGOUT,
-} from '../types';
+import {REGISTER, REGISTER_SUCCESS, LOGIN, LOGOUT} from '../types';
 
 const initialAuthState = {
   token: null,
   name: '',
-  isRegSukses: true,
-  isLoading: false,
+  isRegSukses: false,
 };
 
 export const authReducers = (state = initialAuthState, action) => {
@@ -21,26 +13,14 @@ export const authReducers = (state = initialAuthState, action) => {
         ...state,
         token: action.payload,
         name: action.name,
-        isLoading: false,
-      };
-    case LOGIN_LOADING:
-      return {
-        ...state,
-        isLoading: action.payload,
       };
 
     case REGISTER:
       return {
         ...state,
         isRegSukses: true,
-        isLoading: false,
       };
 
-    case REGISTER_LOADING:
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
     case REGISTER_SUCCESS:
       return {
         ...state,

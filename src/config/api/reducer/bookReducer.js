@@ -3,10 +3,7 @@ import {GET_BOOKS_RECOMMENDED, GET_BOOKS_POPULAR, GET_BOOKS_ID} from '../types';
 const initialBookState = {
   booksRecommended: [],
   booksPopular: [],
-  // isLoading: false,
-  // isOnline: true,
   booksId: [],
-  // isRefreshing: false,
 };
 
 export const dataReducers = (state = initialBookState, action) => {

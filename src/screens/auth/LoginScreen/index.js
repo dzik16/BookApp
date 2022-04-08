@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -28,6 +29,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const token = useSelector(state => state.Auth.token);
+  const isLoading = useSelector(state => state.global.isLoading);
 
   const onSubmit = () => {
     dispatch(loginUser(email, password));
@@ -96,9 +98,14 @@ const Login = () => {
         <TouchableOpacity
           style={[styles.btnLogin, styles.shadowProp]}
           onPress={() => onSubmit()}>
-          <Text style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
-            Login
-          </Text>
+          {isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text
+              style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
+              Login
+            </Text>
+          )}
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,6 +29,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const isRegSukses = useSelector(state => state.Auth.isRegSukses);
+  const isLoading = useSelector(state => state.global.isLoading);
 
   const dispatch = useDispatch();
 
@@ -104,9 +106,14 @@ const Register = () => {
         <TouchableOpacity
           style={[styles.btnLogin, styles.shadowProp]}
           onPress={() => onSubmit()}>
-          <Text style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
-            Register
-          </Text>
+          {isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text
+              style={{fontSize: 15, color: Color.WHITE, fontWeight: 'bold'}}>
+              Register
+            </Text>
+          )}
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
