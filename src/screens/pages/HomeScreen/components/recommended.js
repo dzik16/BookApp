@@ -22,7 +22,7 @@ const recommended = props => {
         keyExtractor={item => item.id}
         renderItem={({item, index}) => (
           <TouchableOpacity
-            style={styles.content}
+            style={[styles.content, styles.shadowProp]}
             onPress={() => navigation.navigate('DetailScreen', {id: item.id})}>
             <Image source={{uri: item.cover_image}} style={styles.bookCover} />
             <Text style={styles.bookTitle}>{item.title}</Text>
@@ -65,5 +65,13 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     color: Color.BLACK,
     fontWeight: 'bold',
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 3,
+    marginBottom: 6,
   },
 });

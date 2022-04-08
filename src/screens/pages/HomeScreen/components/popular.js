@@ -11,7 +11,7 @@ const popular = props => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('DetailScreen', {id: props.data.id})}>
-      <View style={styles.container}>
+      <View style={[styles.container, styles.shadowProp]}>
         <Image
           source={{uri: props.data.cover_image}}
           style={styles.bookImage}
@@ -93,5 +93,12 @@ const styles = StyleSheet.create({
     color: Color.WHITE,
     fontWeight: 'bold',
     marginTop: 5,
+  },
+  shadowProp: {
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 3,
   },
 });
