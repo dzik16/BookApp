@@ -6,10 +6,12 @@ import {Color} from '../../../config/utils/color';
 import {useIsFocused} from '@react-navigation/native';
 import ScreenStatusBar from '../../../components/ScreenStatusBar';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const Splash = () => {
   const navigation = useNavigation();
   const focus = useIsFocused();
+  const isLoading = useSelector(state => state.global.isLoading);
 
   useEffect(() => {
     setTimeout(() => {

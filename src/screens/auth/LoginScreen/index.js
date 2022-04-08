@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -31,15 +32,26 @@ const Login = () => {
   const token = useSelector(state => state.Auth.token);
   const isLoading = useSelector(state => state.global.isLoading);
 
-  const onSubmit = () => {
-    dispatch(loginUser(email, password));
-  };
-
   useEffect(() => {
     if (token) {
-      navigation.navigate('HomeScreen');
+      navigation.replace('HomeScreen');
     }
   }, [token, navigation]);
+
+  const formChecker = () => {
+    const emailRegEx = /[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/;
+    const emailStatus = emailRegEx.test(email); // Boolean
+
+    if (email.length === 0 && password.length === 0) {
+      Alert.alert('Error', 'Empty form, Please fill form correctly!');
+    } else {
+      if (emailStatus && password.length >= 8) {
+        dispatch(loginUser(email, password));
+      } else {
+        Alert.alert('Error', 'Invalid Form!');
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,6 +70,7 @@ const Login = () => {
               placeholder={'email'}
               value={email}
               onChangeText={text => setEmail(text)}
+              keyboardType="email-address"
             />
           </View>
         </View>
@@ -97,7 +110,7 @@ const Login = () => {
 
         <TouchableOpacity
           style={[styles.btnLogin, styles.shadowProp]}
-          onPress={() => onSubmit()}>
+          onPress={() => formChecker()}>
           {isLoading ? (
             <ActivityIndicator color="white" />
           ) : (

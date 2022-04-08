@@ -32,11 +32,6 @@ const HomeScreen = ({navigation}) => {
     dispatch(getBooksPopular(getToken));
   }, []);
 
-  const logOut = () => {
-    dispatch(logout());
-    navigation.replace('SplashScreen');
-  };
-
   return (
     <View style={styles.main}>
       <Header />

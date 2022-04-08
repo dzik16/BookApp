@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -35,12 +36,23 @@ const Register = () => {
 
   useEffect(() => {
     if (isRegSukses) {
-      navigation.navigate('SuksesScreen');
+      navigation.replace('SuksesScreen');
     }
   }, [isRegSukses, navigation]);
 
-  const onSubmit = () => {
-    return dispatch(signupUser(name, email, password));
+  const formChecker = () => {
+    const emailRegEx = /[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-z]/;
+    const emailStatus = emailRegEx.test(email); // Boolean
+
+    if (email.length === 0 && password.length === 0 && name.length === 0) {
+      Alert.alert('Error', 'Empty form, Please fill form correctly!');
+    } else {
+      if (name && emailStatus && password.length >= 8) {
+        dispatch(signupUser(name, email, password));
+      } else {
+        Alert.alert('Error', 'Invalid Form!');
+      }
+    }
   };
 
   return (
@@ -70,6 +82,7 @@ const Register = () => {
               placeholder={'Email'}
               value={email}
               onChangeText={text => setEmail(text)}
+              keyboardType="email-address"
             />
           </View>
         </View>
@@ -105,7 +118,7 @@ const Register = () => {
 
         <TouchableOpacity
           style={[styles.btnLogin, styles.shadowProp]}
-          onPress={() => onSubmit()}>
+          onPress={() => formChecker()}>
           {isLoading ? (
             <ActivityIndicator color="white" />
           ) : (
