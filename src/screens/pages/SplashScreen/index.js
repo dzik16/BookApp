@@ -5,8 +5,10 @@ import LottieView from 'lottie-react-native';
 import {Color} from '../../../config/utils/color';
 import {useIsFocused} from '@react-navigation/native';
 import ScreenStatusBar from '../../../components/ScreenStatusBar';
+import {useNavigation} from '@react-navigation/native';
 
-const Splash = ({navigation}) => {
+const Splash = () => {
+  const navigation = useNavigation();
   const focus = useIsFocused();
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const Splash = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ScreenStatusBar status={focus} color={'#22C7A9'} />
+      <ScreenStatusBar status={focus} color={Color.PRIMARY_MAIN_COLOR} />
       <View style={{flex: 4}}>
         <LottieView source={SplashAnim} autoPlay loop />
       </View>
@@ -36,7 +38,7 @@ export default Splash;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.PRIMARY_MAIN_COLOR,
+    backgroundColor: Color.SECOND_MAIN_COLOR,
   },
   containerTxt: {
     flex: 1,
