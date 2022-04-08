@@ -31,6 +31,7 @@ export const loginUser = (email, password) => async dispatch => {
         dispatch(
           login(response.data.tokens.access.token, response.data.user.name),
         );
+        dispatch(regSukses(false));
         console.log('Login Sukses');
         // showSuccess('Login Sukses');
       }
@@ -47,6 +48,7 @@ export const signupUser = (name, email, password) => async dispatch => {
   try {
     await axios.post(REGISTER_API, {email, password, name}).then(() => {
       dispatch(register());
+      dispatch(regSukses(true));
       console.log('Register Berhasil');
       //   showSuccess('Register Berhasil');
     });
