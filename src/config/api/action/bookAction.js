@@ -2,7 +2,7 @@ import axios from 'axios';
 import {BOOKS_API} from '../../api/baseAPI';
 
 import {BOOKS_RECOMMENDED, BOOKS_POPULAR, BOOKS_ID} from '../types';
-import {setLoading} from './globalAction';
+import {setLoading, setRefresh} from './globalAction';
 
 export const saveBookPopular = data => ({
   type: BOOKS_POPULAR,
@@ -29,12 +29,12 @@ export const getBooksRecommended = (token, limit) => async dispatch => {
       })
       .then(response => {
         dispatch(setLoading(false));
+        dispatch(setRefresh(false));
         dispatch(saveBookRecommended(response.data.results));
       });
   } catch (err) {
     console.log(err.message);
-    // showError(err.message);
-    // dispatch(refresh(false));
+    dispatch(setRefresh(false));
   }
 };
 
@@ -45,12 +45,13 @@ export const getBooksPopular = token => async dispatch => {
       .get(BOOKS_API, {headers: {Authorization: `Bearer ${token}`}})
       .then(response => {
         dispatch(setLoading(false));
+        dispatch(setRefresh(false));
         dispatch(saveBookPopular(response.data.results));
       });
   } catch (err) {
     console.log('hahha');
     // showError(err.message);
-    // dispatch(refresh(false));
+    dispatch(setRefresh(false));
     dispatch(setLoading(false));
   }
 };
@@ -65,12 +66,13 @@ export const getBooksId = (token, id) => async dispatch => {
       })
       .then(response => {
         dispatch(saveBookId(response.data));
+        dispatch(setRefresh(false));
         dispatch(setLoading(false));
       });
   } catch (err) {
     console.log(err.message);
     // showError(err.message);
-    // dispatch(refresh(false));
+    dispatch(setRefresh(false));
     dispatch(setLoading(false));
   }
 };

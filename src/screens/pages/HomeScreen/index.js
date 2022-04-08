@@ -1,9 +1,13 @@
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, FlatList, RefreshControl} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ScreenStatusBar from '../../../components/ScreenStatusBar';
 import {useIsFocused} from '@react-navigation/native';
-import {getBooksPopular, getBooksRecommended} from '../../../config/api';
+import {
+  getBooksPopular,
+  getBooksRecommended,
+  setRefresh,
+} from '../../../config/api';
 import {Color} from '../../../config/utils/color';
 
 import Header from './components/header';
@@ -22,13 +26,20 @@ const HomeScreen = () => {
   const dataBooksPopular = useSelector(state => state.dataBooks.booksPopular);
   const getToken = useSelector(state => state.Auth.token);
   const isLoading = useSelector(state => state.global.isLoading);
+  const isRefresh = useSelector(state => state.global.isRefresh);
 
   console.log(getToken);
 
   useEffect(() => {
-    dispatch(getBooksRecommended(getToken, 5));
+    dispatch(getBooksRecommended(getToken, 6));
     dispatch(getBooksPopular(getToken));
   }, []);
+
+  const onRefresh = () => {
+    dispatch(setRefresh(true));
+    dispatch(getBooksRecommended(getToken, 6));
+    dispatch(getBooksPopular(getToken));
+  };
 
   if (!isLoading) {
     return (
@@ -40,6 +51,12 @@ const HomeScreen = () => {
             data={dataBooksPopular}
             numColumns={2}
             keyExtractor={(item, index) => String(index)}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefresh}
+                onRefresh={() => onRefresh()}
+              />
+            }
             ListHeaderComponent={() => (
               <>
                 <ScreenStatusBar

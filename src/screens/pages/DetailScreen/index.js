@@ -1,7 +1,7 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View, RefreshControl} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBooksId} from '../../../config/api';
+import {getBooksId, setRefresh} from '../../../config/api';
 
 import ScreenStatusBar from '../../../components/ScreenStatusBar';
 import {useIsFocused} from '@react-navigation/native';
@@ -20,6 +20,7 @@ const DetailScreen = ({route, navigation}) => {
   const dataBooksId = useSelector(state => state.dataBooks.booksId);
   const getToken = useSelector(state => state.Auth.token);
   const isLoading = useSelector(state => state.global.isLoading);
+  const isRefresh = useSelector(state => state.global.isRefresh);
 
   const {id} = route.params;
 
@@ -27,12 +28,24 @@ const DetailScreen = ({route, navigation}) => {
     dispatch(getBooksId(getToken, id));
   }, []);
 
+  const onRefresh = () => {
+    dispatch(setRefresh(true));
+    dispatch(getBooksId(getToken, id));
+  };
+
   if (!isLoading) {
     return (
       <>
-        <Header />
+        <Header data={dataBooksId} />
         <ScreenStatusBar status={focus} color={Color.SECOND_MAIN_COLOR} />
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={styles.content}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefresh}
+              onRefresh={() => onRefresh()}
+            />
+          }>
           <View style={styles.container}>
             <Banner data={dataBooksId} />
             <Rating data={dataBooksId} />

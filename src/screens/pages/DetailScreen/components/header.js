@@ -1,10 +1,34 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import ImgToBase64 from 'react-native-image-base64';
+import ShareSocial from 'react-native-share';
 import {IconBack, IconShare, IconLove} from '../../../../assets';
 import {Color} from '../../../../config/utils/color';
 import {useNavigation} from '@react-navigation/native';
 
-const header = () => {
+const header = props => {
+  const [image, setImage] = useState('');
+
+  const myShare = async () => {
+    // ImgToBase64.getBase64String(`${props.data.cover_image}`)
+    //   .then(base64String => setImage(base64String))
+    //   .catch(err => console.log(err));
+
+    // console.log(image);
+    // let foto = `data:image/jpeg;base64,${image}`;
+
+    const shareOptions = {
+      message: `Haii, ada buku baru nih *${props.data.title}*\nSilahkan Dibeli Stok Terbatas!!`,
+      // url: foto,
+    };
+
+    try {
+      const ShareResponse = await ShareSocial.open(shareOptions);
+    } catch (err) {
+      console.log('Error => ', err);
+    }
+  };
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -17,7 +41,7 @@ const header = () => {
           <Image source={IconLove} style={[styles.headerIcon, styles.love]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={myShare}>
           <Image source={IconShare} style={styles.headerIcon} />
         </TouchableOpacity>
       </View>
