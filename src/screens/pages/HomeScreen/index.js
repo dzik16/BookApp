@@ -3,11 +3,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ScreenStatusBar from '../../../components/ScreenStatusBar';
 import {useIsFocused} from '@react-navigation/native';
-import {
-  getBooksPopular,
-  getBooksRecommended,
-  logout,
-} from '../../../config/api';
+import {getBooksPopular, getBooksRecommended} from '../../../config/api';
 import {Color} from '../../../config/utils/color';
 
 import Header from './components/header';
@@ -65,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: Color.THIRD_MAIN_COLORL,
+    backgroundColor: Color.BACKGROUND_DETAIL,
   },
   popular: {
     fontSize: 18,

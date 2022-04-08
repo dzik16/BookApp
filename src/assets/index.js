@@ -10,6 +10,9 @@ import IconName from './icons/name.png';
 import IconEmail from './icons/email.png';
 import IconPassword from './icons/password.png';
 import IconLogout from './icons/logout.png';
+import IconBack from './icons/back.png';
+import IconShare from './icons/share.png';
+import IconLove from './icons/love.png';
 
 export {
   SplashAnim,
@@ -22,4 +25,7 @@ export {
   IconEmail,
   IconPassword,
   IconLogout,
+  IconBack,
+  IconShare,
+  IconLove,
 };
