@@ -9,8 +9,9 @@ import {Color} from '../../../config/utils/color';
 import Header from './components/header';
 import Recommended from './components/recommended';
 import Popular from './components/popular';
+import Loading from '../../../components/Loading';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
   const focus = useIsFocused();
   const dispatch = useDispatch();
 
@@ -20,6 +21,7 @@ const HomeScreen = ({navigation}) => {
 
   const dataBooksPopular = useSelector(state => state.dataBooks.booksPopular);
   const getToken = useSelector(state => state.Auth.token);
+  const isLoading = useSelector(state => state.global.isLoading);
 
   console.log(getToken);
 
@@ -28,27 +30,34 @@ const HomeScreen = ({navigation}) => {
     dispatch(getBooksPopular(getToken));
   }, []);
 
-  return (
-    <View style={styles.main}>
-      <Header />
-      <View style={styles.container}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={dataBooksPopular}
-          numColumns={2}
-          keyExtractor={(item, index) => String(index)}
-          ListHeaderComponent={() => (
-            <>
-              <ScreenStatusBar status={focus} color={Color.SECOND_MAIN_COLOR} />
-              <Recommended data={dataBooksRecommended} />
-              <Text style={styles.popular}>Popular</Text>
-            </>
-          )}
-          renderItem={({item, index}) => <Popular data={item} />}
-        />
+  if (!isLoading) {
+    return (
+      <View style={styles.main}>
+        <Header />
+        <View style={styles.container}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={dataBooksPopular}
+            numColumns={2}
+            keyExtractor={(item, index) => String(index)}
+            ListHeaderComponent={() => (
+              <>
+                <ScreenStatusBar
+                  status={focus}
+                  color={Color.SECOND_MAIN_COLOR}
+                />
+                <Recommended data={dataBooksRecommended} />
+                <Text style={styles.popular}>Popular</Text>
+              </>
+            )}
+            renderItem={({item, index}) => <Popular data={item} />}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <Loading />;
+  }
 };
 
 export default HomeScreen;

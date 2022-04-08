@@ -11,12 +11,15 @@ import Header from './components/header';
 import Banner from './components/banner';
 import Rating from './components/rating';
 import Overview from './components/overview';
+import Loading from '../../../components/Loading';
 
 const DetailScreen = ({route, navigation}) => {
   const focus = useIsFocused();
   const dispatch = useDispatch();
+
   const dataBooksId = useSelector(state => state.dataBooks.booksId);
   const getToken = useSelector(state => state.Auth.token);
+  const isLoading = useSelector(state => state.global.isLoading);
 
   const {id} = route.params;
 
@@ -24,19 +27,23 @@ const DetailScreen = ({route, navigation}) => {
     dispatch(getBooksId(getToken, id));
   }, []);
 
-  return (
-    <>
-      <Header />
-      <ScreenStatusBar status={focus} color={Color.SECOND_MAIN_COLOR} />
-      <ScrollView style={styles.content}>
-        <View style={styles.container}>
-          <Banner data={dataBooksId} />
-          <Rating data={dataBooksId} />
-          <Overview data={dataBooksId} />
-        </View>
-      </ScrollView>
-    </>
-  );
+  if (!isLoading) {
+    return (
+      <>
+        <Header />
+        <ScreenStatusBar status={focus} color={Color.SECOND_MAIN_COLOR} />
+        <ScrollView style={styles.content}>
+          <View style={styles.container}>
+            <Banner data={dataBooksId} />
+            <Rating data={dataBooksId} />
+            <Overview data={dataBooksId} />
+          </View>
+        </ScrollView>
+      </>
+    );
+  } else {
+    return <Loading />;
+  }
 };
 
 export default DetailScreen;

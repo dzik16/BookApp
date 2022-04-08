@@ -65,6 +65,7 @@ export const getBooksId = (token, id) => async dispatch => {
       })
       .then(response => {
         dispatch(saveBookId(response.data));
+        dispatch(setLoading(false));
       });
   } catch (err) {
     console.log(err.message);
