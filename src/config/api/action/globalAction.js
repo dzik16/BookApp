@@ -1,4 +1,4 @@
-import {LOADING, REFRESH} from '../types';
+import {LOADING, REFRESH, INTERNET} from '../types';
 
 export const setLoading = value => ({
   type: LOADING,
@@ -7,5 +7,10 @@ export const setLoading = value => ({
 
 export const setRefresh = value => ({
   type: REFRESH,
+  payload: value,
+});
+
+export const setInternet = value => ({
+  type: INTERNET,
   payload: value,
 });

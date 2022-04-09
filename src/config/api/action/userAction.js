@@ -34,12 +34,10 @@ export const loginUser = (email, password) => async dispatch => {
         dispatch(setLoading(false));
         dispatch(regSukses(false));
         console.log('Login Sukses');
-        // showSuccess('Login Sukses');
       }
     });
   } catch (error) {
     console.log(error.message);
-    // showError(error.message);
     dispatch(setLoading(false));
   }
 };
@@ -52,12 +50,10 @@ export const signupUser = (name, email, password) => async dispatch => {
       dispatch(regSukses(true));
       console.log('Register Berhasil');
       dispatch(setLoading(false));
-      //   showSuccess('Register Berhasil');
     });
   } catch (error) {
     dispatch(regSukses(false));
     dispatch(setLoading(false));
-    // showError(error.message);
     console.log(error.message);
   }
 };

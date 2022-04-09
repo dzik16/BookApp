@@ -12,3 +12,4 @@ export const BOOKS_ID = '@BOOKS_ID';
 //global
 export const LOADING = '@LOADING';
 export const REFRESH = '@REFRESH';
+export const INTERNET = '@INTERNET';

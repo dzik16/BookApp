@@ -41,6 +41,10 @@ const HomeScreen = () => {
     dispatch(getBooksPopular(getToken));
   };
 
+  function recommended(i, j) {
+    return parseFloat(j.average_rating) - parseFloat(i.average_rating);
+  }
+
   if (!isLoading) {
     return (
       <View style={styles.main}>
@@ -48,7 +52,7 @@ const HomeScreen = () => {
         <View style={styles.container}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={dataBooksPopular}
+            data={dataBooksPopular.sort(recommended)}
             numColumns={2}
             keyExtractor={(item, index) => String(index)}
             refreshControl={

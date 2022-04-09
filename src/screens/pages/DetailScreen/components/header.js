@@ -10,16 +10,8 @@ const header = props => {
   const [image, setImage] = useState('');
 
   const myShare = async () => {
-    // ImgToBase64.getBase64String(`${props.data.cover_image}`)
-    //   .then(base64String => setImage(base64String))
-    //   .catch(err => console.log(err));
-
-    // console.log(image);
-    // let foto = `data:image/jpeg;base64,${image}`;
-
     const shareOptions = {
       message: `Haii, ada buku baru nih *${props.data.title}*\nSilahkan Dibeli Stok Terbatas!!`,
-      // url: foto,
     };
 
     try {

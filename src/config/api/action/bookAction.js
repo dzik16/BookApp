@@ -50,13 +50,11 @@ export const getBooksPopular = token => async dispatch => {
       });
   } catch (err) {
     console.log('hahha');
-    // showError(err.message);
     dispatch(setRefresh(false));
     dispatch(setLoading(false));
   }
 };
 
-// GET_BOOKS_API_BY_ID
 export const getBooksId = (token, id) => async dispatch => {
   dispatch(setLoading(true));
   try {
@@ -71,7 +69,6 @@ export const getBooksId = (token, id) => async dispatch => {
       });
   } catch (err) {
     console.log(err.message);
-    // showError(err.message);
     dispatch(setRefresh(false));
     dispatch(setLoading(false));
   }

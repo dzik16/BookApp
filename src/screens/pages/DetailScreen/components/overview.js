@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Color.BLACK,
     paddingTop: 10,
+    textAlign: 'justify',
   },
 });

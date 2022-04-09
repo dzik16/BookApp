@@ -1,8 +1,9 @@
-import {LOADING, REFRESH} from '../types';
+import {LOADING, REFRESH, INTERNET} from '../types';
 
 const initialGlobalState = {
   isLoading: false,
   isRefresh: false,
+  isInternet: true,
 };
 
 export const globalReducers = (state = initialGlobalState, action) => {
@@ -16,6 +17,11 @@ export const globalReducers = (state = initialGlobalState, action) => {
       return {
         ...state,
         isRefresh: action.payload,
+      };
+    case INTERNET:
+      return {
+        ...state,
+        isInternet: action.payload,
       };
     default:
       return state;
