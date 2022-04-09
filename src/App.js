@@ -1,42 +1,28 @@
-import React, {useEffect} from 'react';
-import {SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import {Provider, useSelector, useDispatch} from 'react-redux';
+import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {Persistore, Store, setInternet} from './config/api';
+import {Persistore, Store} from './config/api';
 import Root from './config/router/index';
 import Internet from './components/internet';
 
 const App = () => {
-  const CekInternet = () => {
-    const dispatch = useDispatch();
-    const isOnline = useSelector(state => state.global.isInternet);
+  const [netStatus, setNetStatus] = useState(true);
 
-    const netStatus = () => {
-      NetInfo.addEventListener(state => {
-        const offline = !(state.isConnected && state.isInternetReachable);
-        dispatch(setInternet(!offline));
-      });
-    };
+  const connection = NetInfo.fetch().then(state => {
+    return state.isConnected;
+  });
 
-    useEffect(() => {
-      netStatus();
-      return () => {
-        netStatus();
-      };
-    }, []);
-
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        {!isOnline ? <Internet /> : <Root />}
-      </SafeAreaView>
-    );
-  };
+  useEffect(() => {
+    connection.then(res => {
+      setNetStatus(res);
+    });
+  }, [connection]);
 
   return (
     <Provider store={Store}>
       <PersistGate persistor={Persistore}>
-        <CekInternet />
+        {netStatus ? <Root /> : <Internet />}
       </PersistGate>
     </Provider>
   );

@@ -1,10 +1,10 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
-import ImgToBase64 from 'react-native-image-base64';
 import ShareSocial from 'react-native-share';
 import {IconBack, IconShare, IconLove} from '../../../../assets';
 import {Color} from '../../../../config/utils/color';
 import {useNavigation} from '@react-navigation/native';
+import {notification} from '../../../../config/utils/Notification';
 
 const header = props => {
   const [image, setImage] = useState('');
@@ -21,6 +21,16 @@ const header = props => {
     }
   };
 
+  const clickNotification = () => {
+    notification.configure();
+    notification.createChannel('1');
+    notification.sendNotification(
+      '1',
+      'Menyukai',
+      `Kamu menyukai ${props.data.title}`,
+    );
+  };
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -29,7 +39,7 @@ const header = props => {
       </TouchableOpacity>
 
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={clickNotification}>
           <Image source={IconLove} style={[styles.headerIcon, styles.love]} />
         </TouchableOpacity>
 
