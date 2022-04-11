@@ -41,15 +41,6 @@ const HomeScreen = () => {
     dispatch(getBooksPopular(getToken));
   };
 
-  function sortData(props) {
-    const data = props;
-
-    const sort = data.slice(0);
-    sort.reverse((a, b) => a.average_rating - b.average_rating);
-
-    return sort;
-  }
-
   if (!isLoading) {
     return (
       <View style={styles.main}>
@@ -57,7 +48,7 @@ const HomeScreen = () => {
         <View style={styles.container}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={sortData(dataBooksPopular)}
+            data={dataBooksPopular}
             numColumns={2}
             keyExtractor={(item, index) => String(index)}
             refreshControl={

@@ -12,14 +12,25 @@ import {useNavigation} from '@react-navigation/native';
 
 const recommended = props => {
   const navigation = useNavigation();
+
+  function sortData(props) {
+    const data = props;
+
+    const sort = data.slice(0);
+    sort.sort((a, b) => b.average_rating - a.average_rating);
+
+    return sort;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.txtTitle}>Recommended</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        data={props.data}
+        data={sortData(props.data)}
         keyExtractor={item => item.id}
+        initialNumToRender={6}
         renderItem={({item, index}) => (
           <TouchableOpacity
             style={[styles.content, styles.shadowProp]}
@@ -65,6 +76,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     color: Color.BLACK,
     fontWeight: 'bold',
+    fontSize: 12,
   },
   shadowProp: {
     shadowColor: '#000',
