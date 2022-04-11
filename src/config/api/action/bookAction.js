@@ -19,13 +19,13 @@ export const saveBookId = data => ({
   payload: data,
 });
 
-export const getBooksRecommended = (token, limit) => async dispatch => {
+export const getBooksRecommended = (token, batas) => async dispatch => {
   dispatch(setLoading(true));
   try {
     await axios
       .get(BOOKS_API, {
         headers: {Authorization: `Bearer ${token}`},
-        params: {limit},
+        params: {batas},
       })
       .then(response => {
         dispatch(setLoading(false));

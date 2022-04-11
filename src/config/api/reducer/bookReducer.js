@@ -12,21 +12,16 @@ export const dataReducers = (state = initialBookState, action) => {
       return {
         ...state,
         booksRecommended: action.payload,
-        // isRefreshing: false,
       };
     case BOOKS_POPULAR:
       return {
         ...state,
         booksPopular: action.payload,
-        // isLoading: false,
-        // isRefreshing: false,
       };
     case BOOKS_ID:
       return {
         ...state,
         booksId: action.payload,
-        // isLoading: false,
-        // isRefreshing: false,
       };
 
     default:
