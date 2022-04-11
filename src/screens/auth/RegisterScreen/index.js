@@ -2,10 +2,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   SafeAreaView,
   ScrollView,
-  Image,
   TouchableOpacity,
   ActivityIndicator,
   Alert,
@@ -21,6 +19,7 @@ import {IconEmail, IconPassword, IconName} from '../../../assets';
 import {Color} from '../../../config/utils/color';
 
 import Header from './components/header';
+import FormInput from '../../../components/FormInput';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -61,44 +60,29 @@ const Register = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header />
 
-        <View style={[styles.containerInput, styles.shadowProp]}>
-          <View style={styles.iconInput}>
-            <Image source={IconName} style={styles.icon} />
-          </View>
-          <View style={styles.txtInput}>
-            <TextInput
-              placeholder={'Full Name'}
-              value={name}
-              onChangeText={text => setName(text)}
-            />
-          </View>
-        </View>
-        <View style={[styles.containerInput, styles.shadowProp]}>
-          <View style={styles.iconInput}>
-            <Image source={IconEmail} style={styles.icon} />
-          </View>
-          <View style={styles.txtInput}>
-            <TextInput
-              placeholder={'Email'}
-              value={email}
-              onChangeText={text => setEmail(text)}
-              keyboardType="email-address"
-            />
-          </View>
-        </View>
-        <View style={[styles.containerInput, styles.shadowProp]}>
-          <View style={styles.iconInput}>
-            <Image source={IconPassword} style={styles.icon} />
-          </View>
-          <View style={styles.txtInput}>
-            <TextInput
-              placeholder={'Password'}
-              value={password}
-              onChangeText={text => setPassword(text)}
-              secureTextEntry={true}
-            />
-          </View>
-        </View>
+        <FormInput
+          icon={IconName}
+          placeholder="Full Name"
+          value={name}
+          onChangeText={text => setName(text)}
+        />
+
+        <FormInput
+          icon={IconEmail}
+          placeholder="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          keyboardType="email-address"
+        />
+
+        <FormInput
+          icon={IconPassword}
+          placeholder="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+          secureTextEntry
+        />
+
         <View style={styles.containerRegist}>
           <View>
             <Text style={{fontSize: 13, color: Color.WHITE}}>

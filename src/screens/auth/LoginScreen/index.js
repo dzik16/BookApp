@@ -2,8 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  Image,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
@@ -22,6 +20,7 @@ import {Color} from '../../../config/utils/color';
 
 import Header from './components/header';
 import Title from './components/title';
+import FormInput from '../../../components/FormInput';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -61,41 +60,27 @@ const Login = () => {
 
         <Title />
 
-        <View style={[styles.containerInput, styles.shadowProp]}>
-          <View style={styles.iconInput}>
-            <Image source={IconEmail} style={styles.icon} />
-          </View>
-          <View style={styles.txtInput}>
-            <TextInput
-              placeholder={'email'}
-              value={email}
-              onChangeText={text => setEmail(text)}
-              keyboardType="email-address"
-            />
-          </View>
-        </View>
+        <FormInput
+          icon={IconEmail}
+          placeholder="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          keyboardType="email-address"
+        />
 
-        <View style={[styles.containerInput, styles.shadowProp]}>
-          <View style={styles.iconInput}>
-            <Image source={IconPassword} style={styles.icon} />
-          </View>
-          <View style={styles.txtInput}>
-            <TextInput
-              placeholder={'password'}
-              value={password}
-              onChangeText={text => setPassword(text)}
-              secureTextEntry={true}
-            />
-          </View>
-        </View>
+        <FormInput
+          icon={IconPassword}
+          placeholder="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+          secureTextEntry
+        />
 
         <View style={styles.containerRegist}>
           <View>
-            <TouchableOpacity>
-              <Text style={{fontSize: 15, color: Color.WHITE}}>
-                Dont have an account?
-              </Text>
-            </TouchableOpacity>
+            <Text style={{fontSize: 15, color: Color.WHITE}}>
+              Dont have an account?
+            </Text>
           </View>
           <View>
             <TouchableOpacity
